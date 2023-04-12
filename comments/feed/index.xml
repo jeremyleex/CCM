@@ -8,8 +8,8 @@
 <channel>
 	<title>
 	Comments for 	</title>
-	<atom:link href="/comments/feed/" rel="self" type="application/rss+xml" />
-	<link></link>
+	<atom:link href="/CCM/comments/feed/" rel="self" type="application/rss+xml" />
+	<link>/CCM</link>
 	<description></description>
 	<lastBuildDate>Wed, 12 Apr 2023 01:02:19 +0000</lastBuildDate>
 	<sy:updatePeriod>
