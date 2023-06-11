@@ -279,15 +279,15 @@ img.emoji {
 <div class="wp-block-column is-layout-flow">
 <form id="my-form" accept-charset="utf-8" action="https://formspree.io/f/mnqykgrp" method="POST">
   <fieldset id="fs-frm-inputs">
-    <p><label for="name">Name *</label></p>
+    <p><label for="name">Name</label></p>
 <p></p>
-    <input type="text" name="name" id="name" required="">
+    <input type="text" name="name" id="name" >
     <p><label>Email Address *</label></p>
 <p></p>
     <input type="email" name="email" required="">
-    <p><label>Message</label></p>
+    <p><label>Message *</label></p>
 <p></p>
-    <textarea rows="5" name="message"></textarea>
+    <textarea rows="5" name="message" required=""></textarea>
   </fieldset>
   <button id="my-form-button">Submit</button>
   <p id="my-form-status"></p>
@@ -477,7 +477,7 @@ img.emoji {
 	</div>
 
 </div>
-<div class="builder-item"><div class="item--inner"><div class="component-wrap"><div><p><a href="https://themeisle.com/themes/neve/" rel="nofollow">Neve</a> | Powered by <a href="http://wordpress.org/" rel="nofollow">WordPress</a></p></div></div></div></div>
+<div class="builder-item" hidden><div class="item--inner"><div class="component-wrap"><div><p><a href="https://themeisle.com/themes/neve/" rel="nofollow">Neve</a> | Powered by <a href="http://wordpress.org/" rel="nofollow">WordPress</a></p></div></div></div></div>
 </div>
 <div class="hfg-slot c-left"><div class="builder-item desktop-left tablet-left mobile-left">
 <div class="item--inner builder-item--footer-four-widgets" data-section="neve_sidebar-widgets-footer-four-widgets" data-item-id="footer-four-widgets">
@@ -577,6 +577,38 @@ var NeveProperties = {"ajaxurl":"https:\/\/jeremyleex.github.io\/CCM\/wp-admin\/
 		attributes: true
 	});
 var menuCarets=document.querySelectorAll(".nav-ul li > .wrap > .caret");menuCarets.forEach((function(e){e.addEventListener("keydown",(e=>{13===e.keyCode&&e.target.parentElement.classList.toggle("active")})),e.parentElement.parentElement.addEventListener("focusout",(t=>{e.parentElement.parentElement.contains(t.relatedTarget)||e.parentElement.classList.remove("active")}))}));
+</script>
+<script>
+    var form = document.getElementById("my-form");
+    
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("my-form-status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "Thanks for your submission!";
+          form.reset()
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form"
+            }
+          })
+        }
+      }).catch(error => {
+        status.innerHTML = "Oops! There was a problem submitting your form"
+      });
+    }
+    form.addEventListener("submit", handleSubmit)
 </script>
 </body>
 
